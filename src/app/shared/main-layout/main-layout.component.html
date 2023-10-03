@@ -1,2 +1,10 @@
-<p>main-layout works!</p>
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <span>e-Store</span>
+
+  <div class="nav-space"></div>
+
+  <a mat-button [routerLink]="['/']">Home</a>
+  <a mat-button [routerLink]="['/cart']">Cart</a>
+  <a mat-raised-button color="accent">Sign In</a>
+</mat-toolbar>
 <router-outlet></router-outlet>
