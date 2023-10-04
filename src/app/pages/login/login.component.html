@@ -1,0 +1,45 @@
+<mat-grid-list cols="1" rows="1">
+  <mat-grid-tile>
+    <form [formGroup]="form" (ngSubmit)="signIn()">
+      <mat-card>
+        <mat-card-header>Welcome!</mat-card-header>
+
+        <mat-card-content>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" fxFlex="50" />
+              <mat-error *ngIf="form.get('username')?.errors?.['required']"
+                >Enter your username</mat-error
+              >
+              <mat-error *ngIf="form.get('username')?.errors?.['minlength']"
+                >Username length should be more than
+                {{ form.get('username')?.errors?.['minlength'].requiredLength }}</mat-error
+              >
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" />
+              <mat-error *ngIf="form.get('password')?.errors?.['required']"
+                >Enter your password</mat-error
+              >
+              <mat-error *ngIf="form.get('password')?.errors?.['minlength']"
+                >Passowrd length should be more than
+                {{ form.get('password')?.errors?.['minlength'].requiredLength }}
+                characters</mat-error
+              >
+            </mat-form-field>
+          </p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-raised-button [disabled]="form.invalid || submitted">
+            Log in
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </mat-grid-tile>
+</mat-grid-list>
