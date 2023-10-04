@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,7 @@ export class LoginComponent {
   form: FormGroup;
   submitted = false;
 
-  constructor() {
+  constructor(private router: Router, private authService: AuthService) {
     this.form = new FormGroup({
       username: new FormControl(null, [
         Validators.required,
@@ -23,7 +26,26 @@ export class LoginComponent {
     });
   }
 
-  signIn() {
+  onSubmit() {
+    if (this.form.invalid) return;
+
     this.submitted = true;
+
+    const user = {
+      username: this.form.value.username,
+      password: this.form.value.password,
+    };
+
+    this.authService.login(user).subscribe(
+      () => {
+        this.form.reset();
+        this.router.navigate(['/']);
+        this.submitted = false;
+      },
+      (error: Error) => {
+        this.submitted = false;
+        alert(error.message);
+      }
+    );
   }
 }
