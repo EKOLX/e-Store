@@ -1,1 +1,13 @@
-<p>products works!</p>
+<mat-grid-list
+  *ngIf="products$ | async as products; else loading"
+  cols="3"
+  [gutterSize]="'10px'"
+>
+  <mat-grid-tile *ngFor="let product of products">
+    <app-product [product]="product" />
+  </mat-grid-tile>
+</mat-grid-list>
+
+<ng-template #loading>
+  <h3>Loading...</h3>
+</ng-template>

@@ -1,0 +1,17 @@
+mat-card {
+  background-color: #f0f0f0;
+  height: auto;
+}
+
+img {
+  height: 120px;
+  object-fit: cover;
+}
+
+mat-card-content {
+  height: 60px;
+}
+
+mat-card-actions {
+  justify-content: space-between;
+}

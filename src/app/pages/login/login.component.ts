@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +26,14 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {
+  get formErrors() {
+    return {
+      username: this.form.controls['username'].errors,
+      password: this.form.controls['password'].errors,
+    };
+  }
+
+  onSubmit(): void {
     if (this.form.invalid) return;
 
     this.submitted = true;

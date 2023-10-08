@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, tap } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
-import User from '../models/User';
-import Auth from '../models/Auth';
+import User from '../../models/User';
+import Auth from '../../models/Auth';
 
 const TOKEN = 'TOKEN';
 
@@ -18,9 +18,7 @@ export class AuthService {
   login(user: User): Observable<Auth> {
     return this.http.post<Auth>(this.url, user).pipe(
       tap((data) => this.setToken(data)),
-      catchError(
-        this.handleError('login', 'Something went wrong. Please, try again..')
-      )
+      catchError(this.handleError('login'))
     );
   }
 
@@ -40,10 +38,11 @@ export class AuthService {
     }
   }
 
-  private handleError(operation: string, message: string): any {
-    return (error: any) => {
-      console.error(operation, error); // TODO: use logging service
-      throw new Error(message);
+  private handleError(operation: string): any {
+    return ({ error }: HttpErrorResponse) => {
+      // TODO: send error data to logging service
+      console.error(`'Operation: ${operation}. Error: ${error}`);
+      return throwError(error);
     };
   }
 }
