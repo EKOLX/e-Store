@@ -1,13 +1,13 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>{{ product.title | slice : 0 : 11 }}</mat-card-title>
+    <mat-card-title>{{ product.title | truncate : 16 }}</mat-card-title>
     <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
   </mat-card-header>
 
   <img mat-card-image src="{{ product.image }}" alt="{{ product.title }}" />
 
   <mat-card-content>
-    <p>{{ product.description | slice : 0 : 70 }}</p>
+    <p>{{ product.description | truncate : 70 }}</p>
   </mat-card-content>
 
   <mat-card-actions>
