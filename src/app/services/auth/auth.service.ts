@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, tap } from 'rxjs';
 
+import { handleError } from '../utils';
 import User from '../../models/User';
 import Auth from '../../models/Auth';
 
@@ -18,7 +19,12 @@ export class AuthService {
   login(user: User): Observable<Auth> {
     return this.http.post<Auth>(this.url, user).pipe(
       tap((data) => this.setToken(data)),
-      catchError(this.handleError('login'))
+      catchError(
+        handleError(
+          'login',
+          'Something went wrong. Please, try to login later...'
+        )
+      )
     );
   }
 
@@ -36,13 +42,5 @@ export class AuthService {
     } else {
       localStorage.removeItem(TOKEN);
     }
-  }
-
-  private handleError(operation: string): any {
-    return ({ error }: HttpErrorResponse) => {
-      // TODO: send error data to logging service
-      console.error(`'Operation: ${operation}. Error: ${error}`);
-      return throwError(error);
-    };
   }
 }

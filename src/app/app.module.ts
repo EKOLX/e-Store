@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { MaterialModule } from './material/material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +29,7 @@ import { CartComponent } from './pages/cart/cart.component';
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    InfiniteScrollModule,
     AppRoutingModule,
   ],
   providers: [],
