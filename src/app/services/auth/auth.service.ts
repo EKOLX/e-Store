@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, tap } from 'rxjs';
 
 import { handleError } from '../utils';
+import { CartService } from '../cart/cart.service';
 import User from '../../models/User';
 import Auth from '../../models/Auth';
 
@@ -14,7 +15,7 @@ const TOKEN = 'TOKEN';
 export class AuthService {
   private url = 'https://fakestoreapi.com/auth/login';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cartService: CartService) {}
 
   login(user: User): Observable<Auth> {
     return this.http.post<Auth>(this.url, user).pipe(
@@ -29,6 +30,7 @@ export class AuthService {
   }
 
   logout() {
+    this.cartService.clearCart();
     this.setToken(null);
   }
 
